@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SyncroFin — Controle financeiro inteligente</title>
+<meta name="description" content="SyncroFin é o gestor financeiro pessoal e doméstico completo. Sincronize contas, visualize sua saúde financeira e exporte para o contador. A partir de R$ 59,90/mês.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap">
+
+<style>
+:root {
+  --bg: #F2F6FB;
+  --surface: #FFFFFF;
+  --surface-alt: #EBF1F9;
+  --border: #D5E0EE;
+  --text: #0B1929;
+  --text-2: #486070;
+  --text-3: #8FAABF;
+  --accent: #12C990;
+  --accent-h: #0EAF7C;
+  --accent-2: #3B8EFF;
+  --warn: #F59E0B;
+  --danger: #EF4444;
+  --hero-bg: #071929;
+  --hero-s: #0D2540;
+  --hero-b: #1B3D5E;
+  --hero-t: #E4EEF8;
+  --hero-t2: #7EA8C8;
+  --r: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #060E1A;
+    --surface: #0B1928;
+    --surface-alt: #0F2035;
+    --border: #172A3E;
+    --text: #E0EAF5;
+    --text-2: #7FA5C0;
+    --text-3: #3C6080;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #060E1A;
+  --surface: #0B1928;
+  --surface-alt: #0F2035;
+  --border: #172A3E;
+  --text: #E0EAF5;
+  --text-2: #7FA5C0;
+  --text-3: #3C6080;
+  color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);margin:0;overflow-x:hidden;line-height:1.6}
+img{max-width:100%}
+a{color:inherit}
+
+/* ── NAV ─────────────────────────────────── */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:rgba(7,25,41,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--hero-b);padding:0 24px}
+.nav-in{max-width:1100px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-ic{width:32px;height:32px;object-fit:contain;border-radius:6px}
+.logo-tx{font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:-.02em}
+.logo-tx span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;margin:0;padding:0}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:10px 22px;border-radius:40px;font-size:.9rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;flex-shrink:0}
+.nav-cta:hover{background:var(--accent-h);transform:translateY(-1px)}
+@media(max-width:700px){.nav-links{display:none}}
+
+/* ── HERO ────────────────────────────────── */
+.hero{background:var(--hero-bg);padding:80px 24px 100px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse at 50% 40%,rgba(18,201,144,.14) 0%,transparent 70%);pointer-events:none}
+.hero-in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:820px){.hero-in{grid-template-columns:1fr;gap:48px}}
+.hero-eye{display:inline-flex;align-items:center;gap:7px;background:rgba(18,201,144,.12);border:1px solid rgba(18,201,144,.3);color:var(--accent);font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 14px;border-radius:40px;margin-bottom:22px}
+.hero h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:700;line-height:1.14;color:var(--hero-t);text-wrap:balance;margin:0 0 18px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{color:var(--hero-t2);font-size:1.02rem;line-height:1.72;max-width:460px;margin-bottom:34px}
+.hero-acts{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-p{background:var(--accent);color:#fff;border:none;padding:14px 26px;border-radius:40px;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 20px rgba(18,201,144,.35)}
+.btn-p:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 8px 28px rgba(18,201,144,.45)}
+.btn-o{background:transparent;color:var(--hero-t);border:1px solid var(--hero-b);padding:14px 26px;border-radius:40px;font-size:1rem;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
+.btn-o:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.05)}
+.hero-price-hint{margin-top:16px;font-size:.84rem;color:var(--hero-t2)}
+.hero-price-hint strong{color:var(--hero-t)}
+.hero-tags{margin-top:26px;display:flex;gap:20px;flex-wrap:wrap}
+.hero-tag{display:flex;align-items:center;gap:6px;color:var(--hero-t2);font-size:.82rem}
+.hero-tag svg{color:var(--accent);flex-shrink:0}
+
+/* score + cashflow cards */
+.hero-vis{display:flex;flex-direction:column;align-items:center;gap:20px}
+.sc-card{background:var(--hero-s);border:1px solid var(--hero-b);border-radius:22px;padding:28px 26px;width:100%;max-width:350px}
+.sc-hdr{font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--hero-t2);display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.sc-hdr span:last-child{color:var(--accent);letter-spacing:0;text-transform:none}
+.sc-gauge-wrap{display:flex;justify-content:center;margin-bottom:22px}
+.sc-gauge{position:relative;width:170px;height:100px}
+.sc-gauge svg{width:100%;height:100%;overflow:visible}
+.sc-num-wrap{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center}
+.sc-num{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.sc-lbl{font-size:.68rem;color:var(--hero-t2);text-transform:uppercase;letter-spacing:.08em}
+.sc-rows{display:flex;flex-direction:column;gap:11px}
+.sc-row{display:flex;align-items:center;gap:10px}
+.sc-row-lbl{font-size:.82rem;color:var(--hero-t2);flex:1;min-width:0}
+.sc-bar-bg{width:80px;height:5px;background:rgba(255,255,255,.09);border-radius:3px;overflow:hidden;flex-shrink:0}
+.sc-bar{height:100%;border-radius:3px;width:0;transition:width 1.3s ease}
+.sc-row-val{font-size:.82rem;font-weight:600;color:var(--hero-t);min-width:32px;text-align:right;font-variant-numeric:tabular-nums}
+
+.cf-card{background:var(--hero-s);border:1px solid var(--hero-b);border-radius:16px;padding:18px 18px 14px;width:100%;max-width:350px}
+.cf-ttl{font-size:.76rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;color:var(--hero-t2);margin-bottom:14px}
+.cf-bars{display:flex;align-items:flex-end;gap:5px;height:56px}
+.cf-bw{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end}
+.cf-b{width:100%;border-radius:3px 3px 0 0;transition:height .9s ease;min-height:4px}
+.cf-b.pos{background:rgba(18,201,144,.65)}
+.cf-b.neg{background:rgba(239,68,68,.65)}
+.cf-wk{font-size:.6rem;color:var(--hero-t2);font-variant-numeric:tabular-nums}
+.cf-note{margin-top:9px;font-size:.77rem;color:var(--hero-t2)}
+.cf-note strong{color:var(--accent)}
+
+/* ── TRUST BAR ───────────────────────────── */
+.trust{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 24px}
+.trust-in{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:36px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:.84rem;font-weight:500;color:var(--text-2)}
+.trust-item svg{color:var(--accent)}
+
+/* ── SECTION BASE ────────────────────────── */
+.sec{padding:88px 24px}
+.inner{max-width:1100px;margin:0 auto}
+.ctr{text-align:center}
+.sec-eye{display:inline-flex;align-items:center;gap:6px;font-size:.77rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:13px}
+.sec-ttl{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:700;line-height:1.2;text-wrap:balance;margin:0 0 14px;color:var(--text)}
+.sec-sub{font-size:1.02rem;color:var(--text-2);max-width:540px;margin:0 auto;line-height:1.7}
+
+/* ── FEATURE CARDS ───────────────────────── */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:22px;margin-top:56px}
+.fc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;transition:transform .2s,box-shadow .2s}
+.fc:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.07)}
+.fc-ico{width:46px;height:46px;border-radius:11px;background:rgba(18,201,144,.1);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.fc-ico svg{color:var(--accent)}
+.fc-ico.blue{background:rgba(59,142,255,.1)}
+.fc-ico.blue svg{color:var(--accent-2)}
+.fc-ico.warn{background:rgba(245,158,11,.1)}
+.fc-ico.warn svg{color:var(--warn)}
+.fc h3{font-size:1.02rem;font-weight:600;margin:0 0 9px;color:var(--text)}
+.fc p{font-size:.88rem;color:var(--text-2);line-height:1.65;margin:0}
+
+/* ── HOW IT WORKS ────────────────────────── */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:56px}
+@media(max-width:680px){.how-grid{grid-template-columns:1fr;gap:30px}}
+.how-step{text-align:center}
+.how-n{width:50px;height:50px;border-radius:50%;background:var(--accent);color:#fff;font-size:1.15rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:'Fraunces',serif}
+.how-step h3{font-size:1rem;font-weight:600;margin:0 0 9px}
+.how-step p{font-size:.88rem;color:var(--text-2);line-height:1.65;margin:0}
+
+/* ── SPLIT HIGHLIGHTS ────────────────────── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.split.rev>*:first-child{order:2}
+.split.rev>*:last-child{order:1}
+@media(max-width:780px){.split{grid-template-columns:1fr;gap:36px}.split.rev>*{order:unset}}
+.split-txt .sec-eye{justify-content:flex-start}
+.split-txt .sec-ttl{text-align:left;margin:0 0 13px}
+.split-txt .sec-sub{text-align:left;margin:0}
+.chk-list{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+.chk-list li{display:flex;align-items:flex-start;gap:9px;font-size:.9rem;color:var(--text-2);line-height:1.5}
+.chk-dot{width:18px;height:18px;border-radius:50%;background:rgba(18,201,144,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.chk-dot svg{color:var(--accent)}
+.split-vis{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:0 6px 36px rgba(0,0,0,.06)}
+
+/* notif list */
+.notif-list{display:flex;flex-direction:column;gap:9px}
+.n-hdr{font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin:0 0 6px}
+.ni{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border-radius:10px;background:var(--surface-alt)}
+.ni-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ni-dot.c{background:var(--danger)}
+.ni-dot.w{background:var(--warn)}
+.ni-dot.i{background:var(--accent-2)}
+.ni-txt{font-size:.84rem;line-height:1.45;color:var(--text)}
+.ni-time{font-size:.74rem;color:var(--text-3);margin-top:2px}
+
+/* ── ACCOUNTANT ──────────────────────────── */
+.acc-sec{background:var(--hero-bg)}
+.acc-sec .sec-ttl{color:var(--hero-t)}
+.acc-sec .sec-sub{color:var(--hero-t2)}
+.file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:14px;margin-top:44px}
+.fcard{background:var(--hero-s);border:1px solid var(--hero-b);border-radius:12px;padding:16px 14px;display:flex;flex-direction:column;gap:9px}
+.fcard-ico{width:34px;height:34px;border-radius:8px;background:rgba(18,201,144,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fcard-ico svg{color:var(--accent)}
+.fcard-name{font-size:.83rem;font-weight:600;color:var(--hero-t);margin:0}
+.fcard-desc{font-size:.76rem;color:var(--hero-t2);line-height:1.5;margin:0}
+.csv-note{text-align:center;margin-top:28px;font-size:.86rem;color:var(--hero-t2)}
+.csv-note code{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.15);color:var(--hero-t)}
+code{font-size:.85em;background:var(--surface-alt);border:1px solid var(--border);padding:1px 5px;border-radius:4px}
+
+/* ── PRICING ─────────────────────────────── */
+.pricing-sec{background:var(--bg);padding:88px 24px}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:56px;max-width:820px;margin-left:auto;margin-right:auto}
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:36px 30px;position:relative;transition:box-shadow .2s}
+.pc:hover{box-shadow:0 10px 40px rgba(0,0,0,.08)}
+.pc.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 12px 48px rgba(18,201,144,.15)}
+.pc-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 16px;border-radius:40px;white-space:nowrap}
+.pc-name{font-size:.82rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin:0 0 12px}
+.pc-price{display:flex;align-items:flex-end;gap:4px;margin-bottom:8px}
+.pc-cur{font-size:1.1rem;font-weight:600;color:var(--text-2);padding-bottom:6px}
+.pc-amt{font-family:'Fraunces',serif;font-size:3.2rem;font-weight:700;line-height:1;color:var(--text)}
+.pc-per{font-size:.88rem;color:var(--text-3);padding-bottom:8px}
+.pc-desc{font-size:.88rem;color:var(--text-2);line-height:1.6;margin:0 0 28px}
+.pc-feats{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:10px}
+.pc-feats li{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:var(--text-2);line-height:1.5}
+.pc-check{color:var(--accent);flex-shrink:0;margin-top:2px}
+.pc-cta{display:block;text-align:center;padding:13px;border-radius:40px;font-size:.95rem;font-weight:600;text-decoration:none;transition:background .2s,transform .15s;cursor:pointer}
+.pc-cta-p{background:var(--accent);color:#fff;border:none;box-shadow:0 4px 20px rgba(18,201,144,.3)}
+.pc-cta-p:hover{background:var(--accent-h);transform:translateY(-1px)}
+.pc-cta-o{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.pc-cta-o:hover{background:rgba(18,201,144,.06)}
+.price-note{text-align:center;margin-top:28px;font-size:.84rem;color:var(--text-3)}
+.price-note a{color:var(--accent);text-decoration:none}
+
+/* ── PWA ─────────────────────────────────── */
+.pwa-box{background:linear-gradient(135deg,rgba(18,201,144,.07) 0%,rgba(59,142,255,.07) 100%);border:1px solid var(--border);border-radius:22px;padding:52px 36px;text-align:center}
+@media(max-width:580px){.pwa-box{padding:36px 20px}}
+.pwa-plat{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:28px}
+.plat-badge{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:40px;padding:9px 18px;font-size:.88rem;font-weight:500;color:var(--text)}
+
+/* ── FAQ ─────────────────────────────────── */
+.faq-list{max-width:680px;margin:44px auto 0;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:.98rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q svg{flex-shrink:0;transition:transform .25s;color:var(--accent)}
+.faq-item.open .faq-q svg{transform:rotate(45deg)}
+.faq-a{font-size:.9rem;color:var(--text-2);line-height:1.7;padding:0 0 20px;display:none}
+.faq-item.open .faq-a{display:block}
+
+/* ── CTA FINAL ───────────────────────────── */
+.cta-sec{background:var(--accent);padding:80px 24px;text-align:center}
+.cta-sec h2{font-family:'Fraunces',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:700;color:#fff;margin:0 0 14px;text-wrap:balance}
+.cta-sec p{color:rgba(255,255,255,.82);font-size:1.02rem;max-width:460px;margin:0 auto 30px;line-height:1.7}
+.btn-w{background:#fff;color:var(--accent);border:none;padding:15px 30px;border-radius:40px;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,0,0,.14)}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+.cta-note{margin-top:14px;font-size:.83rem;color:rgba(255,255,255,.65)}
+
+/* ── FOOTER ──────────────────────────────── */
+footer{background:var(--hero-bg);color:var(--hero-t2);padding:48px 24px}
+.ft-in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px}
+@media(max-width:680px){.ft-in{grid-template-columns:1fr}}
+.ft-brand{font-size:1.15rem;font-weight:700;color:#fff;margin:0 0 9px}
+.ft-desc{font-size:.84rem;line-height:1.62;max-width:260px;margin:0}
+.ft-col-ttl{font-size:.77rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:0 0 14px}
+.ft-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.ft-col ul a{color:var(--hero-t2);text-decoration:none;font-size:.86rem;transition:color .2s}
+.ft-col ul a:hover{color:#fff}
+.ft-btm{max-width:1100px;margin:36px auto 0;padding-top:22px;border-top:1px solid var(--hero-b);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:.78rem}
+.ft-badges{display:flex;gap:8px}
+.ft-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.55);padding:3px 10px;border-radius:4px;font-size:.73rem;font-weight:600}
+
+/* animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero-left{animation:fadeUp .65s ease both}
+.hero-vis{animation:fadeUp .65s .2s ease both}
+@media(prefers-reduced-motion:reduce){.hero-left,.hero-vis{animation:none}*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#" class="logo">
+      <img class="logo-ic" src="data:image/png;base64,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" alt="SyncroFin logo">
+      <span class="logo-tx">Syncro<span>Fin</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#recursos">Recursos</a></li>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#preco">Preço</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#preco" class="nav-cta">Assinar agora</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-left">
+      <div class="hero-eye">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><circle cx="6.5" cy="6.5" r="6.5"/></svg>
+        Gestor financeiro inteligente
+      </div>
+      <h1>Controle total das suas<br><em>finanças pessoais</em><br>em um só lugar</h1>
+      <p class="hero-sub">Sincronize contas bancárias, acompanhe sua saúde financeira em tempo real, preveja o caixa dos próximos meses e exporte tudo para o contador — sem complicação.</p>
+      <div class="hero-acts">
+        <a href="#preco" class="btn-p">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Começar agora
+        </a>
+        <a href="#como-funciona" class="btn-o">Como funciona</a>
+      </div>
+      <p class="hero-price-hint">A partir de <strong>R$ 59,90/mês</strong> · Cancele quando quiser</p>
+      <div class="hero-tags">
+        <span class="hero-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Sem instalação
+        </span>
+        <span class="hero-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Acesso em qualquer dispositivo
+        </span>
+        <span class="hero-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          App instalável (PWA)
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-vis">
+      <!-- Score card -->
+      <div class="sc-card">
+        <div class="sc-hdr">
+          <span>Saúde Financeira</span>
+          <span>Boa forma ✦</span>
+        </div>
+        <div class="sc-gauge-wrap">
+          <div class="sc-gauge">
+            <svg viewBox="0 0 170 100">
+              <path d="M15 95 A70 70 0 0 1 155 95" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="11" stroke-linecap="round"/>
+              <path id="gauge-arc" d="M15 95 A70 70 0 0 1 155 95" fill="none" stroke="#12C990" stroke-width="11" stroke-linecap="round"
+                stroke-dasharray="220" stroke-dashoffset="220" style="transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)"/>
+            </svg>
+            <div class="sc-num-wrap">
+              <div class="sc-num" id="gauge-num">0</div>
+              <div class="sc-lbl">de 100</div>
+            </div>
+          </div>
+        </div>
+        <div class="sc-rows">
+          <div class="sc-row">
+            <span class="sc-row-lbl">Taxa de poupança</span>
+            <div class="sc-bar-bg"><div class="sc-bar" style="background:#12C990" data-w="78"></div></div>
+            <span class="sc-row-val">78%</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-row-lbl">Reserva de emergência</span>
+            <div class="sc-bar-bg"><div class="sc-bar" style="background:#12C990" data-w="91"></div></div>
+            <span class="sc-row-val">91%</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-row-lbl">Orçamentos em dia</span>
+            <div class="sc-bar-bg"><div class="sc-bar" style="background:#F59E0B" data-w="64"></div></div>
+            <span class="sc-row-val">64%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cashflow card -->
+      <div class="cf-card">
+        <div class="cf-ttl">Previsão de caixa · próximas 8 semanas</div>
+        <div class="cf-bars" id="cf-bars"></div>
+        <div class="cf-note">Saldo mínimo previsto: <strong>R$ 2.840</strong> na semana 6</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-in">
+    <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Dados criptografados
+    </div>
+    <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Sincronização automática
+    </div>
+    <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Notificações inteligentes
+    </div>
+    <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Funciona em qualquer tela
+    </div>
+    <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Exportação para contador
+    </div>
+  </div>
+</div>
+
+<!-- RECURSOS -->
+<section class="sec" id="recursos">
+  <div class="inner">
+    <div class="ctr">
+      <div class="sec-eye">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Recursos
+      </div>
+      <h2 class="sec-ttl">Tudo o que você precisa<br>para organizar sua vida financeira</h2>
+      <p class="sec-sub">Do lançamento manual à sincronização bancária automática — o SyncroFin tem todas as ferramentas que uma família ou profissional autônomo precisa.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="fc">
+        <div class="fc-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Saúde financeira (0–100)</h3>
+        <p>Um índice baseado em taxa de poupança, reserva de emergência e orçamentos. Identifique em segundos se suas finanças estão em boa forma, em atenção ou em risco.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Previsão de caixa</h3>
+        <p>Visualize semana a semana o saldo futuro com base em recorrências e faturas abertas. Saiba com antecedência quando o caixa pode ficar negativo.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico warn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3>Notificações inteligentes</h3>
+        <p>Alertas de orçamento estourado, contas a vencer, falhas de sincronização bancária e caixa negativo projetado — sem spam, com deduplicação automática.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>Sincronização bancária</h3>
+        <p>Conecte contas via Open Finance, Pluggy (Brasil) ou SimpleFIN (EUA/Canadá). Transações importadas automaticamente, prontas para categorizar.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+        <h3>Orçamentos e categorias</h3>
+        <p>Defina limites mensais por categoria, acompanhe o consumo em tempo real e receba alertas antes de estourar o orçamento.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico warn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>Exportação para o contador</h3>
+        <p>Gere um pacote ZIP com CSVs prontos para o Excel — lançamentos, resumo mensal, por categoria, plano de contas e faturas. Com proteção AES-256 opcional.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Multi-usuário no workspace</h3>
+        <p>Compartilhe as finanças com parceiro(a) ou convide o contador como visualizador. Papéis com permissões distintas — dono, editor e visualizador.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>App instalável (PWA)</h3>
+        <p>Adicione o SyncroFin à tela inicial do celular ou computador. Abre em janela própria, sem precisar abrir o navegador. Funciona no Android, iPhone e desktop.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-ico warn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3>Conciliação automática</h3>
+        <p>Configure um limiar de confiança e deixe o sistema vincular pagamentos a faturas automaticamente — com auditoria completa de cada vínculo automático.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="sec" id="como-funciona" style="background:var(--surface-alt)">
+  <div class="inner">
+    <div class="ctr">
+      <div class="sec-eye">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Como funciona
+      </div>
+      <h2 class="sec-ttl">Comece a usar em minutos</h2>
+      <p class="sec-sub">Sem instalação, sem configuração de servidor. Basta criar sua conta e conectar seus dados.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-n">1</div>
+        <h3>Crie sua conta</h3>
+        <p>Cadastre-se com e-mail e senha. Configure seu workspace com o nome da família ou do seu negócio e a moeda principal.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-n">2</div>
+        <h3>Conecte suas contas</h3>
+        <p>Importe contas via Open Finance ou adicione manualmente. As transações aparecem automaticamente, prontas para categorizar.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-n">3</div>
+        <h3>Tome decisões melhores</h3>
+        <p>Acompanhe sua saúde financeira, receba alertas antes que os problemas aconteçam e compartilhe relatórios com quem precisar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTIFICAÇÕES (split) -->
+<section class="sec">
+  <div class="inner">
+    <div class="split">
+      <div class="split-txt">
+        <div class="sec-eye">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Notificações
+        </div>
+        <h2 class="sec-ttl">Fique sempre um passo à frente</h2>
+        <p class="sec-sub">O SyncroFin monitora sua situação financeira de hora em hora e avisa no momento certo — não depois que o estrago já aconteceu.</p>
+        <ul class="chk-list">
+          <li>
+            <div class="chk-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Alerta de orçamento atingindo o limite
+          </li>
+          <li>
+            <div class="chk-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Contas vencendo em até 3 dias
+          </li>
+          <li>
+            <div class="chk-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Previsão de caixa negativo nos próximos 30 dias
+          </li>
+          <li>
+            <div class="chk-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Falhas na sincronização bancária
+          </li>
+          <li>
+            <div class="chk-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Entrega por e-mail, webhook ou sino no app
+          </li>
+        </ul>
+      </div>
+      <div class="split-vis">
+        <p class="n-hdr">Central de notificações</p>
+        <div class="notif-list">
+          <div class="ni">
+            <div class="ni-dot c"></div>
+            <div>
+              <div class="ni-txt">Orçamento <strong>Alimentação</strong> estourado — 108% usado este mês</div>
+              <div class="ni-time">há 2 minutos · crítico</div>
+            </div>
+          </div>
+          <div class="ni">
+            <div class="ni-dot w"></div>
+            <div>
+              <div class="ni-txt">Fatura do <strong>Cartão Nubank</strong> vence em 2 dias — R$ 1.240,00</div>
+              <div class="ni-time">há 1 hora · aviso</div>
+            </div>
+          </div>
+          <div class="ni">
+            <div class="ni-dot c"></div>
+            <div>
+              <div class="ni-txt">Caixa projetado fica <strong>negativo</strong> na semana de 14/jul</div>
+              <div class="ni-time">há 3 horas · crítico</div>
+            </div>
+          </div>
+          <div class="ni">
+            <div class="ni-dot i"></div>
+            <div>
+              <div class="ni-txt">Sincronização <strong>Banco Inter</strong> atualizada com 8 novas transações</div>
+              <div class="ni-time">há 5 horas · info</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPORTAÇÃO CONTADOR -->
+<section class="sec acc-sec" id="contador">
+  <div class="inner ctr">
+    <div class="sec-eye">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Para o contador
+    </div>
+    <h2 class="sec-ttl">Entregue a matéria-prima pronta para o contador</h2>
+    <p class="sec-sub">Um pacote ZIP com CSVs formatados para abrir direto no Excel — separador <code>;</code>, vírgula decimal, datas <code>dd/mm/aaaa</code>, UTF-8 com BOM. Proteja com senha AES-256 se quiser.</p>
+    <div class="file-grid">
+      <div class="fcard">
+        <div class="fcard-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <p class="fcard-name">lancamentos.csv</p>
+        <p class="fcard-desc">Movimentos efetivados: data, conta, descrição, favorecido, categoria, tipo e valor com sinal</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <p class="fcard-name">resumo_mensal.csv</p>
+        <p class="fcard-desc">Receitas, despesas e resultado mês a mês</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <p class="fcard-name">resumo_por_categoria.csv</p>
+        <p class="fcard-desc">Receitas × despesas agrupadas por categoria</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        <p class="fcard-name">plano_de_contas.csv</p>
+        <p class="fcard-desc">Grupos e categorias configurados</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <p class="fcard-name">contas.csv</p>
+        <p class="fcard-desc">Contas e saldo atual</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <p class="fcard-name">titulos.csv</p>
+        <p class="fcard-desc">Faturas emitidas: vencimento, quitação, saldo e situação</p>
+      </div>
+    </div>
+    <p class="csv-note">Qualquer membro pode exportar — inclusive o contador convidado como <code>viewer</code>. Período máximo de 10 anos.</p>
+  </div>
+</section>
+
+<!-- PWA -->
+<section class="sec">
+  <div class="inner">
+    <div class="pwa-box">
+      <div class="sec-eye" style="justify-content:center">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        App instalável
+      </div>
+      <h2 class="sec-ttl">Sempre à mão, em qualquer dispositivo</h2>
+      <p class="sec-sub">O SyncroFin é um PWA: instale direto do navegador sem passar pela loja de apps. Abre em janela própria e funciona como um aplicativo nativo.</p>
+      <div class="pwa-plat">
+        <span class="plat-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/></svg>
+          Android
+        </span>
+        <span class="plat-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg>
+          iPhone / iPad
+        </span>
+        <span class="plat-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Windows / Mac / Linux
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇO -->
+<section class="sec pricing-sec" id="preco" style="background:var(--surface-alt)">
+  <div class="inner">
+    <div class="ctr">
+      <div class="sec-eye">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Planos e preço
+      </div>
+      <h2 class="sec-ttl">Simples e transparente</h2>
+      <p class="sec-sub">Sem surpresas na fatura. Um plano com tudo incluso — pague apenas enquanto usar.</p>
+    </div>
+
+    <div class="price-grid">
+      <!-- Plano Grátis -->
+      <div class="pc">
+        <p class="pc-name">Teste grátis</p>
+        <div class="pc-price">
+          <span class="pc-cur">R$</span>
+          <span class="pc-amt">0</span>
+          <span class="pc-per">/14 dias</span>
+        </div>
+        <p class="pc-desc">Experimente todos os recursos sem compromisso. Sem cartão de crédito necessário.</p>
+        <ul class="pc-feats">
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Acesso completo por 14 dias</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Todos os recursos disponíveis</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Sem necessidade de cartão</li>
+        </ul>
+        <a href="#" class="pc-cta pc-cta-o">Começar teste grátis</a>
+      </div>
+
+      <!-- Plano Principal -->
+      <div class="pc featured">
+        <div class="pc-badge">Mais popular</div>
+        <p class="pc-name">Plano completo</p>
+        <div class="pc-price">
+          <span class="pc-cur">R$</span>
+          <span class="pc-amt">59<span style="font-size:1.6rem">,90</span></span>
+          <span class="pc-per">/mês</span>
+        </div>
+        <p class="pc-desc">Tudo que você precisa para controlar suas finanças com tranquilidade — incluindo app, sincronização bancária e exportação para o contador.</p>
+        <ul class="pc-feats">
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contas e transações ilimitadas</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Sincronização bancária (Open Finance)</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Score de saúde financeira</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Previsão de caixa</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Notificações inteligentes</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Exportação para o contador (ZIP + AES-256)</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>App instalável (PWA) em todos os dispositivos</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Até 5 usuários no workspace</li>
+          <li><svg class="pc-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte por e-mail</li>
+        </ul>
+        <a href="#" class="pc-cta pc-cta-p">Assinar por R$ 59,90/mês</a>
+      </div>
+    </div>
+
+    <p class="price-note">Cobrança mensal recorrente. Cancele quando quiser, sem multa. <a href="#">Termos de serviço</a> · <a href="#">Política de privacidade</a></p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="inner ctr">
+    <div class="sec-eye">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Perguntas frequentes
+    </div>
+    <h2 class="sec-ttl">Ficou alguma dúvida?</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">
+          Meus dados financeiros ficam seguros?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Sim. Todos os dados são criptografados em trânsito (HTTPS) e em repouso. O SyncroFin nunca armazena credenciais bancárias — a conexão com bancos é feita via Open Finance/Pluggy, que é homologado pelo Banco Central. Backups automáticos mantêm seus dados seguros contra falhas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Posso cancelar a qualquer momento?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Sim, sem burocracia e sem multa. Basta cancelar a assinatura nas configurações da sua conta. Você continua com acesso até o fim do período pago e pode exportar todos os seus dados antes de sair.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Quais bancos são suportados?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Via Open Finance são suportados os principais bancos brasileiros regulados pelo Banco Central. Via Pluggy há suporte a dezenas de instituições nacionais. Também é possível importar extratos OFX manualmente de praticamente qualquer banco.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Funciona para pessoa física e jurídica?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">O SyncroFin foi projetado para finanças pessoais, domésticas e de pequenos negócios (MEI, autônomo, freelancer). Não é um sistema contábil de partidas dobradas — é uma ferramenta de gestão e tesouraria que entrega matéria-prima pronta para o contador escriturar.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Como funciona o teste grátis?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Você tem 14 dias de acesso completo a todos os recursos sem precisar informar cartão de crédito. Ao final do período, se quiser continuar, basta assinar o plano completo. Seus dados são preservados automaticamente.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Posso convidar meu contador?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Sim! Convide o contador como "visualizador" — ele terá acesso somente leitura e poderá gerar a exportação para contador com os CSVs já formatados. Não precisa de assinatura extra para convidados com papel visualizador.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+  <h2>Assuma o controle das suas finanças hoje</h2>
+  <p>14 dias grátis, sem cartão de crédito. Depois, apenas R$ 59,90/mês para continuar organizado.</p>
+  <a href="#" class="btn-w">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    Começar teste grátis
+  </a>
+  <p class="cta-note">Cancele quando quiser · Sem multa · Seus dados sempre seus</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-in">
+    <div>
+      <div class="ft-brand">SyncroFin</div>
+      <p class="ft-desc">Gestor financeiro inteligente para pessoas físicas, famílias e pequenos negócios. Controle suas finanças com clareza e tranquilidade.</p>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-ttl">Produto</div>
+      <ul>
+        <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#preco">Preços</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <div class="ft-col-ttl">Legal</div>
+      <ul>
+        <li><a href="#">Termos de serviço</a></li>
+        <li><a href="#">Privacidade</a></li>
+        <li><a href="#">Cookies</a></li>
+        <li><a href="#">Código-fonte (AGPL-3.0)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-btm">
+    <span>© 2026 SyncroFin · Código herdado licenciado AGPL-3.0</span>
+    <div class="ft-badges">
+      <span class="ft-badge">PWA</span>
+      <span class="ft-badge">Open Finance</span>
+      <span class="ft-badge">LGPD</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── gauge animation ── */
+(function(){
+  var arc = document.getElementById('gauge-arc');
+  var num = document.getElementById('gauge-num');
+  if(!arc||!num) return;
+  var total = 220, target = 82;
+  var offset = total - (total * target / 100);
+  setTimeout(function(){
+    arc.style.strokeDashoffset = offset;
+    var start = 0, dur = 1400, begin = Date.now();
+    function tick(){
+      var p = Math.min(1,(Date.now()-begin)/dur);
+      p = 1-(1-p)*(1-p);
+      num.textContent = Math.round(p*target);
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, 300);
+})();
+
+/* ── bar animation ── */
+(function(){
+  var bars = document.querySelectorAll('.sc-bar[data-w]');
+  setTimeout(function(){
+    bars.forEach(function(b){ b.style.width = b.dataset.w + '%'; });
+  }, 400);
+})();
+
+/* ── cashflow bars ── */
+(function(){
+  var data = [62,75,58,80,70,42,66,74];
+  var max = Math.max.apply(null,data);
+  var ct = document.getElementById('cf-bars');
+  if(!ct) return;
+  data.forEach(function(v,i){
+    var bw = document.createElement('div');
+    bw.className = 'cf-bw';
+    var bar = document.createElement('div');
+    bar.className = 'cf-b ' + (v >= 50 ? 'pos' : 'neg');
+    bar.style.height = '0';
+    var wk = document.createElement('div');
+    wk.className = 'cf-wk';
+    wk.textContent = 'S'+(i+1);
+    bw.appendChild(bar);
+    bw.appendChild(wk);
+    ct.appendChild(bw);
+    setTimeout(function(){ bar.style.height = ((v/max)*100)+'%'; }, 350 + i*60);
+  });
+})();
+
+/* ── FAQ toggle ── */
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var item = btn.parentElement;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el){ el.classList.remove('open'); });
+    if(!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
